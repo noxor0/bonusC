@@ -4,12 +4,13 @@
 
 void allocate10(int **x){
 		*x = malloc(sizeof(int) * 10);
-		printf("The size: %zu\n", sizeof(*x));
+		if (*x == 0) { printf("eek"); }
+		//int y[] = {0,1,2,3,4,5,6,7,8,9};
 		int i;
-		for (i = 0; i < 10; i ++) {
-			x[i] = 0;
+		for (i = 0; i < 10; i++) {
+			*x++ = &i;
 		}
-		fprintf(stdout, "%d\n", sum);
+		//*x = y;
 	}
 
 int main(){
@@ -36,10 +37,9 @@ int main(){
 	//in the main function
 	//free the memory in 
 	//*******************************************************
-	printf("The size: %zu\n", sizeof(*a));
 	allocate10(&a);
-	printf("The size: %zu\n", sizeof(*a));
-
+	fprintf(stdout, "number: %d\n", a[8]);
+	
 	//*******************************************************
 	//1 mark 
 	//Write a function "joinStrings" takes as parameters 3 strings. It joins the first 2 together and puts the result in the third string
