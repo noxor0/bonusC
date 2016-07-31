@@ -3,6 +3,7 @@
 #include <string.h>
 
 void allocate10(int **x){
+<<<<<<< HEAD
 	int *y = malloc(sizeof(int) * 20);
 	int i;
 	for(i=0;i<10;i++) {
@@ -41,6 +42,12 @@ void arrayWrite(int arr[4][3], int sizeOfArr, char *binaryFilename) {
 				fwrite(line, sizeof(char), 1, fp);
 			}
 		}
+=======
+		*x = malloc(sizeof(int) * 10);
+		if (*x == 0) { printf("eek"); }
+		int y[] = {0,1,2,3,4,5,6,7,8,9};
+		*x = y;
+>>>>>>> 00645c7cf902fd8c32a0dfff454812188a3022aa
 	}
 	printf("done\n");
 	free(line);
@@ -104,6 +111,7 @@ int main(){
 	//in the main function
 	//free the memory in
 	//*******************************************************
+<<<<<<< HEAD
 
 	allocate10(&a);
 	int i;
@@ -112,6 +120,11 @@ int main(){
 	}
 	free(a);
 
+=======
+	allocate10(&a);
+	fprintf(stdout, "number: %d\n", a[8]);
+	
+>>>>>>> 00645c7cf902fd8c32a0dfff454812188a3022aa
 	//*******************************************************
 	//1 mark
 	//Write a function "joinStrings" takes as parameters 3 strings. It joins the first 2 together and puts the result in the third string
