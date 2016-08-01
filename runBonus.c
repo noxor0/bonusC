@@ -41,10 +41,6 @@ void arrayWrite(int arr[4][3], int sizeOfArr, char *binaryFilename) {
 				fwrite(line, sizeof(char), 1, fp);
 			}
 		}
-		*x = malloc(sizeof(int) * 10);
-		if (*x == 0) { printf("eek"); }
-		int y[] = {0,1,2,3,4,5,6,7,8,9};
-		*x = y;
 	}
 	printf("done\n");
 	free(line);
@@ -76,13 +72,19 @@ void binaryIO(char *file1, char *file2) {
 	puts("done");
 }
 
-void arrayCopy(int **arr1, int **arr2, int ogArr[4][3], int sizes[2]){
-	arr1 = malloc(sizeof(int) * 12);
-	arr2 = malloc(sizeof(int) * 12);
+void arrayCopy(int ***theFArray, int ***theGArray, int theEArray[][3], int theSizes[2]) {
+     int rows = theSizes[0];
+     int col = theSizes[1];
 
-	printf("%d", ogArr[0][0]);
+     int size = rows * col * sizeof(int);
+     //Malloc and assign memory for f
+     *theFArray = malloc(size);
+     //Malloc and assign memory for g
+     theGArray = malloc(size);
 
-}
+     memcpy(theFArray, &theEArray, size);
+     memcpy(*theGArray, &theEArray, size);
+ }
 
 int main(){
 	int *a;
@@ -118,7 +120,7 @@ int main(){
 
 	allocate10(&a);
 	fprintf(stdout, "number: %d\n", a[8]);
-	
+
 	//*******************************************************
 	//1 mark
 	//Write a function "joinStrings" takes as parameters 3 strings. It joins the first 2 together and puts the result in the third string
@@ -172,7 +174,6 @@ int main(){
 	printf("--------\n");
 	sizes[0] = 4;
 	sizes[1] = 3;
-	arrayCopy(f, g, e, sizes);
-
+	arrayCopy(&f, &g, e, sizes);
 	return 1;
 }
