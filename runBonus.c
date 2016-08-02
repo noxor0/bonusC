@@ -77,9 +77,7 @@ void arrayCopy(int ***theFArray, int ***theGArray, int theEArray[][3], int theSi
      int col = theSizes[1];
 
      int size = rows * col * sizeof(int);
-     //Malloc and assign memory for f
      *theFArray = malloc(size);
-     //Malloc and assign memory for g
      theGArray = malloc(size);
 
      memcpy(theFArray, &theEArray, size);
@@ -175,5 +173,14 @@ int main(){
 	sizes[0] = 4;
 	sizes[1] = 3;
 	arrayCopy(&f, &g, e, sizes);
+	printf("%s", "f:");
+	for (i = 0; i < 12; i++){
+		printf("%d ", *((*f)+i));
+	}
+	printf("\n%s", "g:");
+	for (i = 0; i < 12; i++){
+		printf("%d ", *((*g)+i));
+	}
+	printf("\n");
 	return 1;
 }
