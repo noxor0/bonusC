@@ -78,9 +78,9 @@ void arrayCopy(int ***theFArray, int ***theGArray, int theEArray[][3], int theSi
 
      int size = rows * col * sizeof(int);
      *theFArray = malloc(size);
-     theGArray = malloc(size);
+     *theGArray = malloc(size);
 
-     memcpy(theFArray, &theEArray, size);
+     memcpy(*theFArray, &theEArray, size);
      memcpy(*theGArray, &theEArray, size);
  }
 
