@@ -72,17 +72,17 @@ void binaryIO(char *file1, char *file2) {
 	puts("done");
 }
 
-void arrayCopy(int ***theFArray, int ***theGArray, int theEArray[][3], int theSizes[2]) {
-     int rows = theSizes[0];
-     int col = theSizes[1];
+void arrayCopy(int **arr1, int **arr2, int arrOG[][3], int sizes[2]) {
+	int size1 = sizes[0];
+	int size2 = sizes[1];
+	for (int i = 0; i < size1; i++) {
+		for (int k = 0; k < size2; k++) {
+			arr2[i][k]=arrOG[i][k];
+		 	arr1[i][k]=arrOG[i][k];
+		}
+	}
+}
 
-     int size = rows * col * sizeof(int);
-     *theFArray = malloc(size);
-     *theGArray = malloc(size);
-
-     memcpy(*theFArray, &theEArray, size);
-     memcpy(*theGArray, &theEArray, size);
- }
 
 int main(){
 	int *a;
@@ -123,9 +123,9 @@ int main(){
 	//1 mark
 	//Write a function "joinStrings" takes as parameters 3 strings. It joins the first 2 together and puts the result in the third string
 	//The function allocates memory for the third string using malloc
-	//apply the function to strings b,c, and d. After the function is done d should have memory allocated to it and contain "Hello World"
+	//apply the function to strings b,c, and d. arr1ter the function is done d should have memory allocated to it and contain "Hello World"
 	//the function should not assume the sizes of b or c - it needs to be general enough for any string
-	//after calling the function using b,c,d as parameters print out d from the main function
+	//arr1ter calling the function using b,c,d as parameters print out d from the main function
 	//free the memory in d
 	//*******************************************************
 	printf("--------\n");
@@ -170,17 +170,35 @@ int main(){
 	//in main free the memory for g
 	//*******************************************************
 	printf("--------\n");
-	sizes[0] = 4;
-	sizes[1] = 3;
-	arrayCopy(&f, &g, e, sizes);
-	printf("%s", "f:");
-	for (i = 0; i < 12; i++){
-		printf("%d ", *((*f)+i));
+	sizes[0] = size;
+	sizes[1] = sizeof(*e)/sizeof(int);
+
+	f = malloc(size * sizeof(int*));
+	for (int i = 0; i < size; i++) {
+		f[i] = malloc(sizes[1]*sizeof(int));
 	}
-	printf("\n%s", "g:");
-	for (i = 0; i < 12; i++){
-		printf("%d ", *((*g)+i));
+	g = malloc(size * sizeof(int*));
+	g[0]=malloc(sizes[0] * sizes[1] * sizeof(int));
+	for (int i = 1; i < size; i++) {
+		g[i]=g[i-1]+sizes[1]*sizeof(int);
 	}
-	printf("\n");
+
+	arrayCopy(f, g, e, sizes);
+
+	fprintf(stdout,"F: ");
+	for (int i = 0; i < size; i++) {
+		for (int k = 0; k < 3; k++) {
+			fprintf(stdout,"%d ",f[i][k]);
+		}
+	}
+	fprintf(stdout,"\nG: ");
+	for (int i = 0; i < size; i++) {
+		for (int k = 0; k < 3; k++) {
+			fprintf(stdout,"%d ",g[i][k]);
+		}
+	}
+
+	free(f);
+	free(g);
 	return 1;
 }
